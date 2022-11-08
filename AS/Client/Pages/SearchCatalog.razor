@@ -1,0 +1,10 @@
+﻿@page "/searchCatalog"
+
+<MudTextField Intermediate="true" HelperText="@search" @bind-Value="search" Label="Search for Article's?"
+    Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search"
+    AdornmentColor="Color.Secondary" />
+<MudDivider />
+@code {
+    [Parameter]
+    public string? search { get; set; }
+}

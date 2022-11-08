@@ -1,18 +1,31 @@
 ﻿@inherits LayoutComponentBase
-
-<div class="page">
-    <div class="sidebar">
+<MudDialogProvider />
+<MudSnackbarProvider />
+<MudThemeProvider @bind-IsDarkMode="IsDarkMode" />
+<MudLayout>
+    <MudAppBar Elevation="0">
+        <MudIconButton Icon="@Icons.Sharp.Menu" Color="Color.Inherit" Edge="Edge.Start"
+            OnClick="@((e) => DrawerToggle())" />
+        <MudSpacer />
+        <LoginDisplay />
+        <MudIconButton Icon="@Icons.Sharp.MoreVert" Color="Color.Inherit"></MudIconButton>
+        <MudToggleIconButton @bind-Toggled="@IsDarkMode" Icon="@Icons.Sharp.DarkMode" Color="Color.Warning" Title="Off"
+            ToggledIcon="@Icons.Sharp.LightMode" ToggledColor="@Color.Success" Edge="Edge.End" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2" hidden="true">
         <NavMenu />
-    </div>
-
-    <main>
-        <div class="top-row px-4 auth">
-            <LoginDisplay />
-            <a href="https://docs.microsoft.com/aspnet/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer MaxWidth="MaxWidth.Large">
             @Body
-        </article>
-    </main>
-</div>
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>
+@code {
+    public bool IsDarkMode { get; set; }
+    bool _drawerOpen = true;
+    void DrawerToggle()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+}
