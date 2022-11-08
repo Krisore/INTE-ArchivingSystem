@@ -1,10 +1,10 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-16">
+    <MudText Typo="Typo.h3"> Welcome to the Archiving System </MudText>
+    <MudText Typo="Typo.body1" class="mt-5 mb-5"> Search for and Add research to your library </MudText>
+    <SearchCatalog />
+</MudContainer>
+@code {
 
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
-<Counter />
+}
