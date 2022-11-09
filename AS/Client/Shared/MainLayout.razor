@@ -1,22 +1,22 @@
 ﻿@inherits LayoutComponentBase
 <MudDialogProvider />
 <MudSnackbarProvider />
-<MudThemeProvider @bind-IsDarkMode="IsDarkMode" />
+<MudThemeProvider @bind-IsDarkMode="IsDarkMode" Theme="MyCustomTheme" />
 <MudLayout>
-    <MudAppBar Elevation="0">
-        <MudIconButton Icon="@Icons.Sharp.Menu" Color="Color.Inherit" Edge="Edge.Start"
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Sharp.Menu" Color="Color.Default" Edge="Edge.Start"
             OnClick="@((e) => DrawerToggle())" />
         <MudSpacer />
         <LoginDisplay />
-        <MudIconButton Icon="@Icons.Sharp.MoreVert" Color="Color.Inherit"></MudIconButton>
-        <MudToggleIconButton @bind-Toggled="@IsDarkMode" Icon="@Icons.Sharp.DarkMode" Color="Color.Warning" Title="Off"
+        <MudIconButton Icon="@Icons.Sharp.MoreVert" Color="Color.Default"></MudIconButton>
+        <MudToggleIconButton @bind-Toggled="@IsDarkMode" Icon="@Icons.Sharp.DarkMode" Color="Color.Dark" Title="Off"
             ToggledIcon="@Icons.Sharp.LightMode" ToggledColor="@Color.Success" Edge="Edge.End" />
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2" hidden="true">
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Docked" Elevation="1" hidden="true">
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Large">
+        <MudContainer MaxWidth="MaxWidth.Medium">
             @Body
         </MudContainer>
     </MudMainContent>
@@ -24,6 +24,27 @@
 @code {
     public bool IsDarkMode { get; set; }
     bool _drawerOpen = true;
+    MudTheme MyCustomTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Primary = Colors.Teal.Darken2,
+            Secondary = Colors.Green.Darken1,
+            AppbarBackground = Colors.Shades.White,
+        },
+        LayoutProperties = new LayoutProperties()
+        {
+            DrawerWidthLeft = "260px",
+            DrawerWidthRight = "400px"
+        },
+        Typography = new Typography()
+        {
+            Default = new Default()
+            {
+                FontFamily = new[] { "Poppins", "Roboto", "Helvetica", "Arial", "sans-serif" }
+            }
+        }
+    };
     void DrawerToggle()
     {
         _drawerOpen = !_drawerOpen;

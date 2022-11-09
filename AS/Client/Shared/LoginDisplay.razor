@@ -1,30 +1,25 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
-
+@layout MainLayout
 <AuthorizeView>
     <Authorized>
-        <MudText Typo="Typo.body2" class="mr-10">
-            Hello, @context.User.Identity?.Name!
+        <MudText Typo="Typo.body1" Color="Color.Secondary">
+            Welcome 🎉<strong> <u> @context.User.Identity?.Name! </u> </strong>
         </MudText>
-        <MudBadge Icon="@Icons.Sharp.Notifications" Color="Color.Success" Overlap="true" Bordered="true"
+        <MudBadge Icon="@Icons.Sharp.Notifications" Color="Color.Warning" Overlap="true" Bordered="true"
             Class="mx-6 my-4">
-            <MudAvatar Color="Color.Info">
+            <MudAvatar Color="Color.Success">
                 @GetInitial(context.User.Identity?.Name!)
             </MudAvatar>
         </MudBadge>
-        <MudIconButton Icon="@Icons.Filled.Logout" @onclick="BeginLogout" Color="Color.Inherit">
-
-        </MudIconButton>
+        <MudIconButton Icon="@Icons.Filled.Logout" @onclick="BeginLogout" Color="Color.Default" Class="ml-5" />
     </Authorized>
     <NotAuthorized>
-        <MudIconButton Icon="@Icons.Filled.Login" Href="authentication/login" Color="Color.Inherit">
-        </MudIconButton>
+        <MudIconButton Icon="@Icons.Filled.Login" Href="authentication/login" Color="Color.Default" />
     </NotAuthorized>
 </AuthorizeView>
-
 @code {
     private async Task BeginLogout(MouseEventArgs args)
     {
