@@ -1,23 +1,34 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
-
 @inject NavigationManager Navigation
 @inject SignOutSessionStateManager SignOutManager
-
+@layout MainLayout
 <AuthorizeView>
     <Authorized>
-        Hello, @context.User.Identity?.Name!
-        <button class="nav-link btn btn-link" @onclick="BeginLogout">Log out</button>
+        <MudText Typo="Typo.body1" Color="Color.Secondary">
+            Welcome 🎉<strong> <u> @context.User.Identity?.Name! </u> </strong>
+        </MudText>
+        <MudBadge Icon="@Icons.Sharp.Notifications" Color="Color.Warning" Overlap="true" Bordered="true"
+            Class="mx-6 my-4">
+            <MudAvatar Color="Color.Success">
+                @GetInitial(context.User.Identity?.Name!)
+            </MudAvatar>
+        </MudBadge>
+        <MudIconButton Icon="@Icons.Filled.Logout" @onclick="BeginLogout" Color="Color.Default" Class="ml-5" />
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/login">Log in</a>
+        <MudIconButton Icon="@Icons.Filled.Login" Href="authentication/login" Color="Color.Default" />
     </NotAuthorized>
 </AuthorizeView>
-
-@code{
+@code {
     private async Task BeginLogout(MouseEventArgs args)
     {
         await SignOutManager.SetSignOutState();
         Navigation.NavigateTo("authentication/logout");
+    }
+    public char GetInitial(string name)
+    {
+        char[] Letters = name.ToArray();
+        return Letters[0];
     }
 }

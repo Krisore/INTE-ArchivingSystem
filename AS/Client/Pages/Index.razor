@@ -1,9 +1,16 @@
 ﻿@page "/"
 
-<PageTitle>Index</PageTitle>
-
-<h1>Hello, world!</h1>
-
-Welcome to your new app.
-
-<SurveyPrompt Title="How is Blazor working for you?" />
+<MudContainer MaxWidth="MaxWidth.Large" Class="mt-16">
+    <MudText Typo="Typo.h4"> <strong> Welcome to the Archiving System </strong></MudText>
+    <MudText Typo="Typo.body1" class="mt-3 mb-5"> Go for, and add related studies to your <a
+            href="/library"><strong><u>Library</u> </strong></a> 📚.
+    </MudText>
+    <MudTextField Intermediate="true" HelperText="@search" @bind-Value="search" Label="Search for Research? 🤔"
+        Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search"
+        AdornmentColor="Color.Secondary" />
+    <SurveyPrompt Title="How is our Arciving System?" />
+</MudContainer>
+@code {
+    [Parameter]
+    public string? search { get; set; }
+}

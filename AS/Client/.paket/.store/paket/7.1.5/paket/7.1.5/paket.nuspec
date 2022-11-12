@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Paket</id>
+    <version>7.1.5</version>
+    <authors>Paket team</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <icon>logo.png</icon>
+    <readme>README.md</readme>
+    <projectUrl>http://fsprojects.github.io/Paket</projectUrl>
+    <description>A dependency manager for .NET with support for NuGet packages and git repositories.</description>
+    <releaseNotes>NuGet Cache: ensure for clitool nupkg is there even after skipped 2nd extraction - https://github.com/fsprojects/Paket/pull/4145</releaseNotes>
+    <tags>nuget bundler F#</tags>
+    <packageTypes>
+      <packageType name="DotnetTool" />
+    </packageTypes>
+    <repository type="git" url="https://github.com/fsprojects/Paket.git" commit="e2fe7c693356a5e70a74cc01501f7dc5f8996695" />
+  </metadata>
+</package>

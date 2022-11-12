@@ -1,39 +1,39 @@
-﻿<div class="top-row ps-3 navbar navbar-dark">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="">AS</a>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-    </div>
-</div>
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-<div class="@NavMenuCssClass" @onclick="ToggleNavMenu">
-    <nav class="flex-column">
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
-                <span class="oi oi-home" aria-hidden="true"></span> Home
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="counter">
-                <span class="oi oi-plus" aria-hidden="true"></span> Counter
-            </NavLink>
-        </div>
-        <div class="nav-item px-3">
-            <NavLink class="nav-link" href="fetchdata">
-                <span class="oi oi-list-rich" aria-hidden="true"></span> Fetch data
-            </NavLink>
-        </div>
-    </nav>
-</div>
-
-@code {
-    private bool collapseNavMenu = true;
-
-    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
-
-    private void ToggleNavMenu()
-    {
-        collapseNavMenu = !collapseNavMenu;
-    }
-}
+<MudNavMenu Bordered="true" Class="py-4">
+    <MudCard>
+        <MudText Typo="Typo.h6" Class="px-4">
+        </MudText>
+        <MudText Typo="Typo.body2"></MudText>
+    </MudCard>
+    <MudDivider Class=" my-1" />
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Sharp.Home"> <strong> Home </strong> </MudNavLink>
+    <MudDivider Class=" my-1" />
+    <MudNavLink Href="profile" Match="NavLinkMatch.All" Icon="@Icons.Rounded.Person" Disabled="true"> <strong> Profile
+        </strong>
+    </MudNavLink>
+    <MudDivider Class=" my-2" />
+    <MudNavGroup Title="Your Space" Icon="@Icons.Sharp.LibraryBooks">
+        <MudNavLink Href="search" Match="NavLinkMatch.Prefix" Icon="@Icons.Sharp.CollectionsBookmark"
+            Color="Color.Inherit"> Search
+        </MudNavLink>
+        <MudNavLink Href="/library" Match="NavLinkMatch.Prefix" Icon="@Icons.Sharp.AutoStories">
+            Library
+        </MudNavLink>
+        <MudNavLink Href="/Publication" Match="NavLinkMatch.Prefix" Icon="@Icons.Sharp.Public">
+            Publication
+        </MudNavLink>
+    </MudNavGroup>
+    <MudNavGroup Icon="@Icons.Sharp.Settings" Title="Settings">
+        <MudNavLink Href="account" Match="NavLinkMatch.Prefix" Icon="@Icons.Rounded.AccountBox" Disabled="true">
+            Account
+        </MudNavLink>
+        <MudNavLink Href="about" Match="NavLinkMatch.Prefix" Icon="@Icons.Rounded.Help" Disabled="true">
+            About
+        </MudNavLink>
+        <MudNavLink Href="help-guides" Match="NavLinkMatch.Prefix" Disabled="true">
+            Help Guides
+        </MudNavLink>
+    </MudNavGroup>
+</MudNavMenu>
