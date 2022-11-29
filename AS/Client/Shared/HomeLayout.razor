@@ -1,0 +1,37 @@
+﻿@inherits LayoutComponentBase
+<MudThemeProvider Theme="MyCustomTheme" />
+<MudLayout>
+    <MudAppBar Elevation="1" Dense="true" Fixed="true">
+
+    </MudAppBar>
+    <MudMainContent>
+        @Body
+    </MudMainContent>
+    <footer>
+        &copy; Enore, Kristian paul
+    </footer>
+</MudLayout>
+
+@code {
+    MudTheme MyCustomTheme = new MudTheme()
+    {
+        Palette = new Palette()
+        {
+            Primary = Colors.Red.Darken4,
+            Secondary = Colors.Amber.Darken1,
+            AppbarBackground = Colors.Shades.White,
+        },
+        LayoutProperties = new LayoutProperties()
+        {
+            DrawerWidthLeft = "260px",
+            DrawerWidthRight = "400px"
+        },
+        Typography = new Typography()
+        {
+            Default = new Default()
+            {
+                FontFamily = new[] { "Poppins", "Roboto", "Helvetica", "Arial", "sans-serif" }
+            }
+        }
+    };
+}

@@ -1,11 +1,18 @@
 ﻿@page "/search"
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-16">
-    <MudTextField Intermediate="true" HelperText="@search" @bind-Value="search" Label="Search for Research? 🤔"
-    Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search"
-    AdornmentColor="Color.Secondary" />
+    <MudContainer MaxWidth="MaxWidth.Large" Class="mt-16">
+            <MudText Typo="Typo.h4"> <strong> Welcome to the Archiving System </strong></MudText>
+            <MudText Typo="Typo.body1" class="mt-3 mb-5"> Go for, and add related studies to your <a
+                    href="/library"><strong><u>Library</u> </strong></a> 📚.
+            </MudText>
+            <MudTextField Class="d-flex inline mr-14" Intermediate="true" HelperText="@search" @bind-Value="search"
+                Label="Search for .... 🤔" Variant="Variant.Filled" Adornment="Adornment.End"
+                AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" Clearable="true" />
+            <SurveyPrompt Title="How is our Arciving System?" />
+        </MudContainer>
     <MudDivider />
     <MudList>
-            <MudCard Outlined="false" @onclick="DrawerOpen">
+            <MudCard Outlined="false" @onclick="DrawerOpen" Class="cursor-pointer">
             <MudCardContent MaxWidth="MaxWitdth.Large">
                 <MudText Typo="Typo.h5">@Title</MudText>
                 <MudText Typo="Typo.caption"> <i>@Organization</i></MudText>
@@ -28,7 +35,7 @@
         </MudCard>
     </MudList>
 </MudContainer>
-<MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Docked" Elevation="13" hidden="true" Anchor="Anchor.End"
+<MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Docked" Elevation="13" hidden="true" Anchor="Anchor.Right"
     DisableOverlay="false" Class="mt-15 mb-15">
     <MudDrawerHeader>
         <MudText Typo="Typo.body2" Class="mt-4"> 

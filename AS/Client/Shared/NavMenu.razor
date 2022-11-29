@@ -1,28 +1,19 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 
-<MudNavMenu Bordered="true" Class="py-4">
-    <MudCard>
-        <MudText Typo="Typo.h6" Class="px-4">
-        </MudText>
-        <MudText Typo="Typo.body2"></MudText>
-    </MudCard>
+<MudNavMenu Bordered="true" Class="py-4" Color="Color.Secondary">
+    <MudText Typo="Typo.h6" Class="px-4">Archieve.</MudText>
+    <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">This system is on Beta report any bugs. 🪲</MudText>
     <MudDivider Class=" my-1" />
     <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Sharp.Home"> <strong> Home </strong> </MudNavLink>
     <MudDivider Class=" my-1" />
-    <MudNavLink Href="profile" Match="NavLinkMatch.All" Icon="@Icons.Rounded.Person" Disabled="true"> <strong> Profile
-        </strong>
+    <MudNavLink Href="search" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.Search" Color="Color.Inherit">
+        Search
     </MudNavLink>
-    <MudDivider Class=" my-2" />
+    <MudDivider Class=" my-1" />
     <MudNavGroup Title="Your Space" Icon="@Icons.Sharp.LibraryBooks">
-        <MudNavLink Href="search" Match="NavLinkMatch.Prefix" Icon="@Icons.Sharp.CollectionsBookmark"
-            Color="Color.Inherit"> Search
-        </MudNavLink>
-        <MudNavLink Href="/library" Match="NavLinkMatch.Prefix" Icon="@Icons.Sharp.AutoStories">
-            Library
-        </MudNavLink>
-        <MudNavLink Href="/Publication" Match="NavLinkMatch.Prefix" Icon="@Icons.Sharp.Public">
-            Publication
+        <MudNavLink Href="/library" Match="NavLinkMatch.Prefix" Icon="@Icons.Sharp.CollectionsBookmark">
+            Your Library
         </MudNavLink>
     </MudNavGroup>
     <MudNavGroup Icon="@Icons.Sharp.Settings" Title="Settings">

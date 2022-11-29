@@ -3,33 +3,39 @@
 <MudSnackbarProvider />
 <MudThemeProvider @bind-IsDarkMode="IsDarkMode" Theme="MyCustomTheme" />
 <MudLayout>
-    <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Sharp.Menu" Color="Color.Default" Edge="Edge.Start"
-            OnClick="@((e) => DrawerToggle())" />
+    <MudAppBar Elevation="2" Dense="true" Fixed="true">
+        <MudToggleIconButton Size="Size.Small" ToggledSize="Size.Small" @bind-Toggled="@_drawerOpen"
+            Icon="@Icons.Rounded.Menu" Color="Color.Default" ToggledIcon="@Icons.Rounded.ClearAll"
+            ToggledColor="@Color.Default" Edge="Edge.Start" />
         <MudSpacer />
         <LoginDisplay />
-        <MudIconButton Icon="@Icons.Sharp.MoreVert" Color="Color.Default"></MudIconButton>
-        <MudToggleIconButton @bind-Toggled="@IsDarkMode" Icon="@Icons.Sharp.DarkMode" Color="Color.Dark" Title="Off"
-            ToggledIcon="@Icons.Sharp.LightMode" ToggledColor="@Color.Success" Edge="Edge.End" />
+        <MudIconButton Icon="@Icons.Sharp.MoreVert" Color="Color.Default" Size="Size.Small">
+
+        </MudIconButton>
+        <MudToggleIconButton @bind-Toggled="@IsDarkMode" Icon="@Icons.Sharp.DarkMode" Color="Color.Dark"
+            Title="Go to Dark Mode" ToggledIcon="@Icons.Sharp.LightMode" ToggledColor="@Color.Success" Edge="Edge.End"
+            Size="Size.Small" ToggledSize="Size.Small" ToggledTitle="Go to Light Mode" />
     </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Docked" Elevation="1" hidden="true">
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2" hidden="true">
         <NavMenu />
     </MudDrawer>
     <MudMainContent>
-        <MudContainer MaxWidth="MaxWidth.Medium">
+        <MudContainer MaxWidth="MaxWidth.ExtraLarge" Style="height= 1500px">
             @Body
         </MudContainer>
     </MudMainContent>
+    <footer>
+    </footer>
 </MudLayout>
 @code {
     public bool IsDarkMode { get; set; }
-    bool _drawerOpen = true;
+    public bool _drawerOpen { get; set; }
     MudTheme MyCustomTheme = new MudTheme()
     {
         Palette = new Palette()
         {
-            Primary = Colors.Teal.Darken2,
-            Secondary = Colors.Green.Darken1,
+            Primary = Colors.Red.Darken4,
+            Secondary = Colors.Amber.Darken1,
             AppbarBackground = Colors.Shades.White,
         },
         LayoutProperties = new LayoutProperties()

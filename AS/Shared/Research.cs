@@ -1,13 +1,13 @@
-namespace AS.Shared;
-
-public class Research
+using System.ComponentModel.DataAnnotations;
+namespace AS.Shared
 {
-    public string? Title { get; set; }
-    public List<Author> Authors { get; set; }
-    public string? Abstract { get; set; }
-    public DateTime DatePublish { get; set; }
+    public class Research
+    {
+        [Required]
+        public int ResearchId { get; set; }
+        [Required]
+        public string? Title { get; set; }
+        public List<Author> Authors { get; set; } = new List<Author>();
+    }
 
-    public ResearchStatus status { get; set; }
-
-    public Research Format { get; set; }
 }

@@ -5,22 +5,30 @@
 @layout MainLayout
 <AuthorizeView>
     <Authorized>
-        <MudText Typo="Typo.body1" Color="Color.Secondary">
-            Welcome 🎉<strong> <u> @context.User.Identity?.Name! </u> </strong>
-        </MudText>
-        <MudBadge Icon="@Icons.Sharp.Notifications" Color="Color.Warning" Overlap="true" Bordered="true"
-            Class="mx-6 my-4">
-            <MudAvatar Color="Color.Success">
-                @GetInitial(context.User.Identity?.Name!)
-            </MudAvatar>
-        </MudBadge>
-        <MudIconButton Icon="@Icons.Filled.Logout" @onclick="BeginLogout" Color="Color.Default" Class="ml-5" />
+        <MudMenu AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft">
+            <ActivatorContent>
+                <MudChip Color="Color.Secondary">
+                    @context.User.Identity?.Name
+                    <MudAvatar Size="Size.Small" Color="Color.Primary" Class="ml-2">
+                        @GetInitial(context.User.Identity?.Name!)</MudAvatar>
+                </MudChip>
+            </ActivatorContent>
+            <ChildContent>
+                <MudMenuItem>Profile</MudMenuItem>
+                <MudMenuItem @onclick="BeginLogout" Color="Color.Default">Sign out
+                </MudMenuItem>
+            </ChildContent>
+        </MudMenu>
     </Authorized>
     <NotAuthorized>
-        <MudIconButton Icon="@Icons.Filled.Login" Href="authentication/login" Color="Color.Default" />
+        <MudButton DisableElevation="true" Size="Size.Small" Href="/siginUser" Variant="Variant.Filled"
+            Color="Color.Primary" Class="rounded-0">
+            Sign In
+        </MudButton>
     </NotAuthorized>
 </AuthorizeView>
 @code {
+    bool _isExpanded = true;
     private async Task BeginLogout(MouseEventArgs args)
     {
         await SignOutManager.SetSignOutState();
