@@ -1,18 +1,21 @@
 ﻿@inherits LayoutComponentBase
-<MudThemeProvider Theme="MyCustomTheme" />
+<MudThemeProvider Theme="MyCustomTheme" @bind-IsDarkMode="IsDarkMode"/>
 <MudLayout>
     <MudAppBar Elevation="1" Dense="true" Fixed="true">
-
+        <MudSpacer/>
+        <MudToggleIconButton @bind-Toggled="@IsDarkMode" Icon="@Icons.Sharp.DarkMode" Color="Color.Dark"
+                             Title="Go to Dark Mode" ToggledIcon="@Icons.Sharp.LightMode" ToggledColor="@Color.Success" Edge="Edge.End"
+                             Size="Size.Small" ToggledSize="Size.Small" ToggledTitle="Go to Light Mode" />
     </MudAppBar>
     <MudMainContent>
         @Body
     </MudMainContent>
     <footer>
-        &copy; Enore, Kristian paul
     </footer>
 </MudLayout>
 
 @code {
+    public bool IsDarkMode { get; set; }
     MudTheme MyCustomTheme = new MudTheme()
     {
         Palette = new Palette()

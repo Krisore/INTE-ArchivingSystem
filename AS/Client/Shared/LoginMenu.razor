@@ -1,7 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @page "/siginUser"
-<MudContainer MaxWidth="MaxWidth.Small" Class="d-flex justify-center align-center ">
-    <MudCard Class="mt-12" Elevation="8">
+@inject IDialogService DialogService
+        <MudCard Elevation="0">
         <MudCardHeader>
             <CardHeaderAvatar>
                 <MudAvatar Style="height:70px; width:70px;" Image="/img/Pup_logo.jpg"></MudAvatar>
@@ -13,9 +13,9 @@
         </MudCardHeader>
         <MudDivider Class="mb-1" />
         <MudCardMedia Image="/img/pup12.jpg" />
-        <MudDivider Class="mt-2" />
-        <MudCardContent>
-            <MudText Typo="Typo.caption" Align="Align.Center"> PUPBC Archivie. is a system that will assist in the
+        <MudDivider Class="mt-1" />
+    <MudCardContent Class="justify-center">
+            <MudText Typo="Typo.caption" Align="Align.Justify"> PUPBC Archivie. is a system that will assist in the
                 transition from a traditional file cabinet
                 system to an electronic-based archiving system.🚀</MudText>
             <MudDivider Class="my-4" />
@@ -28,15 +28,20 @@
             </MudButton>
             <MudText Typo="Typo.caption"> or </MudText>
             <MudButton StartIcon="@Icons.Rounded.People" Variant="Variant.Outlined" Color="Color.Secondary"
-                DisableElevation="true" Class="ml-2 rounded-0">
+                   DisableElevation="true" Class="ml-2 rounded-0" OnClick="@((e) => BeginLogin(Dialog))">
                 Archivist</MudButton>
         </MudCardActions>
         <MudText Class="d-flex inline justify-center align-center" Typo="Typo.caption"> This system is on Beta ⚠️
         </MudText>
     </MudCard>
-</MudContainer>
-
 
 @code {
-
+    private DialogOptions Dialog = new DialogOptions(){
+            CloseButton = true,
+            NoHeader = false
+    };
+    protected void BeginLogin(DialogOptions Dialog)
+    {
+        DialogService.Show<LoginForm>();
+    }
 }
