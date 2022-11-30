@@ -1,0 +1,53 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject NavigationManager Navigation
+@inject SignOutSessionStateManager SignOutManager
+@inject IDialogService DialogService
+@layout MainLayout
+<AuthorizeView>
+    <Authorized>
+        <MudMenu AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft">
+            <ActivatorContent>
+                <MudChip Color="Color.Primary">
+                    @context.User.Identity?.Name
+                    <MudAvatar Size="Size.Small" Color="Color.Secondary" Class="ml-1">
+                        @GetInitial(context.User.Identity?.Name!)</MudAvatar>
+                </MudChip>
+            </ActivatorContent>
+            <ChildContent>
+                <MudMenuItem>Profile</MudMenuItem>
+                <MudMenuItem @onclick="BeginLogout" Color="Color.Default">Sign out
+                </MudMenuItem>
+            </ChildContent>
+        </MudMenu>
+    </Authorized>
+    <NotAuthorized>
+        <MudButton DisableElevation="true" Size="Size.Small" OnClick="@((e) => BeginLogin(dialog))" Variant="Variant.Filled"
+            Color="Color.Primary" Class="rounded-0">
+            Sign In
+        </MudButton>
+    </NotAuthorized>
+</AuthorizeView>
+@code {
+    private DialogOptions dialog = new DialogOptions()
+        {
+            Position = DialogPosition.TopCenter,
+            CloseButton = true,
+            NoHeader = false,
+            DisableBackdropClick = false,
+        };
+    private async Task BeginLogout(MouseEventArgs args)
+    {
+        await SignOutManager.SetSignOutState();
+        Navigation.NavigateTo("authentication/logout");
+    }
+    private void BeginLogin(DialogOptions options)
+    {
+       DialogService.Show<LoginMenu>("",options);
+    }
+    public char GetInitial(string name)
+    {
+        char[] Letters = name.ToArray();
+        return Letters[0];
+    }
+}

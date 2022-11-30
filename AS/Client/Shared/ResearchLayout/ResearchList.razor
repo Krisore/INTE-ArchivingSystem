@@ -1,0 +1,50 @@
+﻿@inject IResearchService ResearchService
+@implements IDisposable
+
+<MudContainer MaxWidth="MaxWidth.Medium">
+    <MudList>
+        @foreach (var research in ResearchService.Researches)
+        {
+            <MudCard Class="my-2 cursor-pointer" Elevation="1">
+                <MudCardContent>
+                <a href="research/@research.Id">
+                    <MudText Typo="Typo.body2" Class="d-block">
+                       @research.Title
+                    </MudText>
+
+                    <MudText Typo="Typo.subtitle2" Class="mb-2" Align="Align.Justify">
+                     
+                    </MudText>
+                    <MudDivider DividerType="DividerType.Middle" />
+                    <MudText Typo="Typo.body2" Align="Align.Justify" Class="mt-2">
+                        @research.Abstract
+                    </MudText>
+                </a>
+                </MudCardContent>
+                <MudCardActions>
+                    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Sharp.Add" Color="Color.Primary"
+                           Size="Size.Small">
+                        Add to library
+                    </MudButton>
+                    <MudButton Class="ml-3" StartIcon="@Icons.Filled.Description" Variant="Variant.Text"
+                           Color="Color.Inherit">
+                        Related
+                    </MudButton>
+                </MudCardActions>
+            </MudCard>
+        }
+    </MudList>
+</MudContainer>
+@code {
+    //[Parameter]
+    //public int? OrganizationId { get; set; } = null;
+    protected override void  OnInitialized()
+    {
+        //await ResearchService.LoadResearchs();
+        ResearchService.OnChange += StateHasChanged;
+    }
+    public void Dispose()
+    {
+        ResearchService.OnChange -= StateHasChanged;
+    }
+}

@@ -1,0 +1,15 @@
+﻿@using AS.Shared
+
+<h3>LoginForm</h3>
+
+
+<EditForm Model="User" OnValidSubmit="HandleLogin">
+
+</EditForm>
+@code {
+    public User User = new User();
+    public void HandleLogin()
+    {
+        Console.WriteLine("Log me in");
+    }
+}

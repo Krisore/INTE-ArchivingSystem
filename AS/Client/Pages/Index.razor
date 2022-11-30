@@ -1,16 +1,58 @@
 ﻿@page "/"
-
-<MudContainer MaxWidth="MaxWidth.Large" Class="mt-16">
-    <MudText Typo="Typo.h4"> <strong> Welcome to the Archiving System </strong></MudText>
-    <MudText Typo="Typo.body1" class="mt-3 mb-5"> Go for, and add related studies to your <a
-            href="/library"><strong><u>Library</u> </strong></a> 📚.
-    </MudText>
-    <MudTextField Intermediate="true" HelperText="@search" @bind-Value="search" Label="Search for Research? 🤔"
-        Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search"
-        AdornmentColor="Color.Secondary" />
-    <SurveyPrompt Title="How is our Arciving System?" />
+@page "/{organizationUrl}"
+@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject IOrganizationService OrganizationService
+@inject IResearchService ResearchService
+@layout MainLayout
+<MudContainer MaxWidth="MaxWidth.Medium">
+    @if (_organization != null)
+    {
+        <MudText Typo="Typo.body1"> Welcome to the @_organization.Name Section !</MudText>
+        <ResearchList />
+    }
+    else
+    {
+        <AuthorizeView>
+            <NotAuthorized>
+                    <div class="d-block justify-center align-center my-13">
+                <MudText Typo="Typo.h4"> Welcome to the Polytechnic Universty of the Philippines Archive Files !</MudText>
+                <MudText Typo="Typo.body1"> Go for and add articles to your <strong>library 📚</strong></MudText>
+                <MudTextField Class="d-flex inline" Intermediate="true" HelperText="@search" @bind-Value="search"
+                          Label="Search for .... 🤔" Variant="Variant.Filled" Adornment="Adornment.End"
+                          AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" Clearable="true" />
+                    <SurveyPrompt Title="How is Our Reference Management System ?" />
+                </div>
+            </NotAuthorized>
+            <Authorized>
+                <MudText Typo="Typo.h4"> Welcome back, @context.User.Identity?.Name!</MudText>
+                <MudText Typo="Typo.body1"> Go for and add articles to your <strong>library 📚</strong></MudText>
+                <MudTextField Class="d-flex inline" Intermediate="true" HelperText="@search" @bind-Value="search"
+                          Label="Search for .... 🤔" Variant="Variant.Filled" Adornment="Adornment.End"
+                          AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" Clearable="true" />
+                        <SurveyPrompt Title="How is Our Reference Management System ?" />
+            </Authorized>
+        </AuthorizeView>
+        <ResearchList/>
+    }
 </MudContainer>
 @code {
     [Parameter]
+    public string? OrganizationUrl { get; set; }
+
+    private Organization _organization = null;
     public string? search { get; set; }
+    protected override async Task OnParametersSetAsync()
+    {
+        await ResearchService.LoadResearchs(OrganizationUrl);
+        if (OrganizationUrl != null)
+        {
+            _organization = OrganizationService.Organizations.FirstOrDefault(o => o.Url.ToLower().Equals(OrganizationUrl.ToLower()));
+        }
+        else
+        {
+            _organization = null;
+        }
+       
+    }
 }

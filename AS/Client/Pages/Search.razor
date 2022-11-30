@@ -1,12 +1,11 @@
 ﻿@page "/search"
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-16">
-    <MudTextField Intermediate="true" HelperText="@search" @bind-Value="search" Label="Search for Research? 🤔"
-    Variant="Variant.Outlined" Adornment="Adornment.End" AdornmentIcon="@Icons.Filled.Search"
-    AdornmentColor="Color.Secondary" />
-    <MudDivider />
+    <MudTextField Class="d-flex inline" Intermediate="true" HelperText="@search" @bind-Value="search"
+                  Label="Search for .... 🤔" Variant="Variant.Filled" Adornment="Adornment.End"
+                  AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" Clearable="true"/>
     <MudList>
-            <MudCard Outlined="false" @onclick="DrawerOpen">
-            <MudCardContent MaxWidth="MaxWitdth.Large">
+            <MudCard Outlined="false" @onclick="DrawerOpen" Class="cursor-pointer">
+            <MudCardContent>
                 <MudText Typo="Typo.h5">@Title</MudText>
                 <MudText Typo="Typo.caption"> <i>@Organization</i></MudText>
                 <MudText Typo="Typo.subtitle2" Class="mb-2" Align="Align.Justify"><cite>@Author</cite></MudText>
@@ -28,7 +27,7 @@
         </MudCard>
     </MudList>
 </MudContainer>
-<MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Docked" Elevation="13" hidden="true" Anchor="Anchor.End"
+<MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Docked" Elevation="13" hidden="true" Anchor="Anchor.Right"
     DisableOverlay="false" Class="mt-15 mb-15">
     <MudDrawerHeader>
         <MudText Typo="Typo.body2" Class="mt-4"> 
@@ -64,7 +63,6 @@
 @code {
     [Parameter]
     public string? search { get; set; }
-    bool filter = true;
     public bool _drawerOpen = false;
     public bool isAdded { get; set; }
     void DrawerOpen()

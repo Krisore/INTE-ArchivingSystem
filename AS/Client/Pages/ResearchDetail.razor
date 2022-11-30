@@ -1,0 +1,27 @@
+﻿@page "/research/{id:int}"
+@inject IResearchService ResearchService
+<PageTitle>Research</PageTitle>
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-3">
+        <MudCard Elevation="0">
+            <MudCardHeader Class="d-block ">
+                <MudText Class="d-inline" Typo="Typo.h6">@research.Title </MudText> 
+                <MudText Class="d-inline" Typo="Typo.subtitle1"> by [Author's' Name]</MudText>
+                <MudText Typo="Typo.caption" Class="d-block" Align="Align.Right"> <i>Facilitated by [Faciliatator Name]</i></MudText>
+            <MudDivider/>
+            </MudCardHeader>
+            <MudCardContent>
+                <MudText Typo="Typo.body1" Align="Align.Justify">@research.Abstract</MudText>
+            </MudCardContent>
+        </MudCard>
+</MudContainer>
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+    private Research research = new Research();
+
+    protected async override Task OnInitializedAsync()
+    {
+        research = await ResearchService.GetProduct(Id);
+    }
+}
