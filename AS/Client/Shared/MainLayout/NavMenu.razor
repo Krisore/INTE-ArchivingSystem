@@ -1,18 +1,20 @@
 ﻿@using Microsoft.AspNetCore.Components.Authorization
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject IOrganizationService OrganizationService
+@inject AuthenticationStateProvider AuthStateProvider
 
 <MudNavMenu Bordered="true" Class="py-4" Color="Color.Secondary">
     <MudText Typo="Typo.h6" Class="px-4">Archieve.</MudText>
     <MudText Typo="Typo.body2" Class="px-4 mud-text-secondary">This system is on Beta report any bugs. 🪲</MudText>
     <MudDivider Class=" my-1" />
-    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Sharp.Home"> <strong> Home </strong> </MudNavLink>
+    <MudNavLink Href="/" Match="NavLinkMatch.All" Icon="@Icons.Rounded.Home"> Home </MudNavLink>
     <MudDivider Class=" my-1" />
-    <MudNavLink Href="search" Match="NavLinkMatch.Prefix" Icon="@Icons.Filled.Search" Color="Color.Inherit">
+    <MudNavLink Href="search" Match="NavLinkMatch.Prefix" Icon="@Icons.Rounded.Search" Color="Color.Inherit">
         Search
     </MudNavLink>
     <MudDivider Class=" my-1" />
     <MudNavGroup Title="Your Space" Icon="@Icons.Sharp.LibraryBooks">
-        <MudNavLink Href="/library" Match="NavLinkMatch.Prefix" Icon="@Icons.Sharp.CollectionsBookmark">
+        <MudNavLink Href="/library" Match="NavLinkMatch.Prefix" Icon="@Icons.Rounded.CollectionsBookmark">
             Your Library
         </MudNavLink>
     </MudNavGroup>
@@ -27,4 +29,18 @@
             Help Guides
         </MudNavLink>
     </MudNavGroup>
+    <MudNavGroup Title="Organization">
+        @foreach(var organization in OrganizationService.Organizations)
+        {
+            <MudNavLink Href="@organization.Url">
+                @organization.Acronym
+            </MudNavLink>
+        }
+    </MudNavGroup>
 </MudNavMenu>
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        await OrganizationService.LoadOrganizations();
+    }
+}

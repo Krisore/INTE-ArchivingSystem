@@ -1,3 +1,5 @@
+using AS.Server.Services.ResearchService;
+using AS.Server.Services.OrganizationService;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.ResponseCompression;
@@ -11,7 +13,8 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
-
+builder.Services.AddScoped<IOrganizationService, OrganizationService>();
+builder.Services.AddScoped<IResearchService, ResearchService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

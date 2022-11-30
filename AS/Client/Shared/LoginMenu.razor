@@ -22,12 +22,12 @@
             <MudText Typo="Typo.body2" Class="mt-4" Align="Align.Center"> Sign In as a </MudText>
         </MudCardContent>
         <MudCardActions Class="d-flex inline justify-center align-center">
-            <MudButton StartIcon="@Icons.Rounded.Person" Class="rounded-0 mr-2" Variant="Variant.Filled"
+        <MudButton Size="Size.Large"  StartIcon="@Icons.Rounded.Person" Class="rounded-0 mr-2" Variant="Variant.Filled"
                 Color="Color.Primary" DisableElevation="true" Href="authentication/login">
                 Student
             </MudButton>
             <MudText Typo="Typo.caption"> or </MudText>
-            <MudButton StartIcon="@Icons.Rounded.People" Variant="Variant.Outlined" Color="Color.Secondary"
+            <MudButton Size="Size.Large" StartIcon="@Icons.Rounded.People" Variant="Variant.Outlined" Color="Color.Secondary"
                    DisableElevation="true" Class="ml-2 rounded-0" OnClick="@((e) => BeginLogin(Dialog))">
                 Archivist</MudButton>
         </MudCardActions>

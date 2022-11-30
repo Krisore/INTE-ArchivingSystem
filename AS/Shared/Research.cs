@@ -13,9 +13,12 @@ namespace AS.Shared
         public string? Abstract { get; set; }
         public string? Url { get; set; }
         public List<Author>? Authors { get; set; }
+        public Adviser Adviser { get; set; } = new Adviser();
         public string? DocumentFile { get; set; }
         public DateTime PublishDate { get; set; }
+        public int OrganizationId { get; set; }
         public Organization? Organization { get; set; }
         public bool IsOpenAccess { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }

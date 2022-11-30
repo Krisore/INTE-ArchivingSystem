@@ -8,7 +8,7 @@ namespace AS.Shared
 {
     public class Organization
     {
-        public int id { get; set; }
+        public int OrganizationId { get; set; }
         public string? Name { get; set; }
         public string? Acronym { get; set; }
         public string? Url { get; set; }
