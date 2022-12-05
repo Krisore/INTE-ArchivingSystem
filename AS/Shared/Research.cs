@@ -12,7 +12,7 @@ namespace AS.Shared
         public string? Title { get; set; }
         public string? Abstract { get; set; }
         public string? Url { get; set; }
-        public List<Author>? Authors { get; set; }
+        public List<Author>? Authors { get; set; } = new List<Author>();
         public Adviser Adviser { get; set; } = new Adviser();
         public string? DocumentFile { get; set; }
         public DateTime PublishDate { get; set; }

@@ -7,40 +7,40 @@ namespace AS.Client.Services.ResearchService
     /// <summary>
     /// This is for research services that provide functional to load data or delete data.
     /// </summary>
-    public class ResearchService : IResearchService
+    public class DocumentService : IDocumentService
     {
         private readonly HttpClient _http;
 
         public event Action OnChange;
 
         public List<Research> Researches { get; set; } = new List<Research>();
-        public ResearchService(HttpClient http)
+        public DocumentService(HttpClient http)
         {
             _http = http;
         }
-        public async Task LoadResearchs(string organizationUrl)
+        public async Task LoadDocuments(string organizationUrl)
         {
             try
             {
                 if (organizationUrl == null)
                 {
-                    Researches = await _http.GetFromJsonAsync<List<Research>>("api/Research");
+                    Researches = await _http.GetFromJsonAsync<List<Research>>("api/Document");
                 }
                 else
                 {
-                    Researches = await _http.GetFromJsonAsync<List<Research>>($"api/Research/Organization/{organizationUrl}");
+                    Researches = await _http.GetFromJsonAsync<List<Research>>($"api/Document/Organization/{organizationUrl}");
                 }
             }
             catch (Exception exception)
             {
-                Console.WriteLine($"{nameof(exception)}");
+               
             }
             OnChange.Invoke();
         }
 
-        public async Task<Research> GetProduct(int id)
+        public async Task<Research> GetResearch(int id)
         {
-            return await _http.GetFromJsonAsync<Research>($"api/Research/{id}");
+            return await _http.GetFromJsonAsync<Research>($"api/Document/{id}");
         }
     }
 }

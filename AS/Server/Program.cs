@@ -14,7 +14,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 builder.Services.AddScoped<IOrganizationService, OrganizationService>();
-builder.Services.AddScoped<IResearchService, ResearchService>();
+builder.Services.AddScoped<IDocumentService, DocumentService>();
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

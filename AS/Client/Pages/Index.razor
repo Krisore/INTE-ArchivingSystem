@@ -1,39 +1,40 @@
 ﻿@page "/"
 @page "/{organizationUrl}"
 @using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
 @inject IOrganizationService OrganizationService
-@inject IResearchService ResearchService
+@inject IDocumentService ResearchService
 @layout MainLayout
 <MudContainer MaxWidth="MaxWidth.Medium">
     @if (_organization != null)
     {
-        <MudText Typo="Typo.body1"> Welcome to the @_organization.Name Section !</MudText>
+        <div class="d-block justify-center align-center mt-13">
+            <MudText Typo="Typo.h6" Align="Align.Center"> Welcome to the @_organization.Name Section !</MudText>
+            <MudDivider Class="my-3" DividerType="DividerType.Middle" />
+        </div>
         <ResearchList />
     }
     else
     {
         <AuthorizeView>
             <NotAuthorized>
-                    <div class="d-block justify-center align-center my-13">
-                <MudText Typo="Typo.h4"> Welcome to the Polytechnic Universty of the Philippines Archive Files !</MudText>
-                <MudText Typo="Typo.body1"> Go for and add articles to your <strong>library 📚</strong></MudText>
-                <MudTextField Class="d-flex inline" Intermediate="true" HelperText="@search" @bind-Value="search"
-                          Label="Search for .... 🤔" Variant="Variant.Filled" Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" Clearable="true" />
+                <div class="d-block justify-center align-center mt-13">
+                    <MudText Typo="Typo.h4"> Welcome to the Polytechnic Universty of the Philippines Archive Files !
+                    </MudText>
+                    <MudText Typo="Typo.body1"> Go for and add articles to your <strong>library 📚</strong></MudText>
+                    <SearchComponent/>
                     <SurveyPrompt Title="How is Our Reference Management System ?" />
                 </div>
             </NotAuthorized>
             <Authorized>
-                <MudText Typo="Typo.h4"> Welcome back, @context.User.Identity?.Name!</MudText>
-                <MudText Typo="Typo.body1"> Go for and add articles to your <strong>library 📚</strong></MudText>
-                <MudTextField Class="d-flex inline" Intermediate="true" HelperText="@search" @bind-Value="search"
-                          Label="Search for .... 🤔" Variant="Variant.Filled" Adornment="Adornment.End"
-                          AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" Clearable="true" />
-                        <SurveyPrompt Title="How is Our Reference Management System ?" />
+                <div class="d-block justify-center align-center mt-13">
+                    <MudText Typo="Typo.h4"> Welcome back, @context.User.Identity?.Name!</MudText>
+                    <MudText Typo="Typo.body1"> Go for and add articles to your <strong>library 📚</strong></MudText>
+                    <SearchComponent />
+                    <SurveyPrompt Title="How is Our Reference Management System ?" />
+                </div>
             </Authorized>
         </AuthorizeView>
-        <ResearchList/>
+        <ResearchList />
     }
 </MudContainer>
 @code {
@@ -44,15 +45,16 @@
     public string? search { get; set; }
     protected override async Task OnParametersSetAsync()
     {
-        await ResearchService.LoadResearchs(OrganizationUrl);
+        await ResearchService.LoadDocuments(OrganizationUrl);
         if (OrganizationUrl != null)
         {
-            _organization = OrganizationService.Organizations.FirstOrDefault(o => o.Url.ToLower().Equals(OrganizationUrl.ToLower()));
+            _organization = OrganizationService.Organizations.FirstOrDefault(o =>
+            o.Url.ToLower().Equals(OrganizationUrl.ToLower()));
         }
         else
         {
             _organization = null;
         }
-       
+
     }
 }

@@ -5,6 +5,45 @@
 @inject HttpClient Http
 
 <PageTitle> Library </PageTitle>
+<MudContainer MaxWidth="MaxWidth.Medium" Class="mt-12">
+    <MudText Typo="Typo.h6" Color="Color.Default" Align="Align.Center">
+        <strong> MY LIBRARY</strong>
+    </MudText>
+    <MudDivider DividerType="DividerType.Middle" />
+    <MudTabs Elevation="1" Rounded="true" ApplyEffectsToContainer="true" PanelClass="pa-6" Class="my-1">
+        <MudTabPanel Text="My Publication" Icon="@Icons.Rounded.FolderShared">
+            <MudText>
+                Content One
+            </MudText>
+        </MudTabPanel>
+        <MudTabPanel Text="All Reference" Icon="@Icons.Rounded.Bookmarks">
+            <MudText>
+                Content Two
+            </MudText>
+        </MudTabPanel>
+        <MudTabPanel Text="Recently Added" Icon="@Icons.Rounded.BookmarkAdded">
+            <MudText>
+                Content Three
+            </MudText>
+        </MudTabPanel>
+        <MudTabPanel Text="Resently Read" Icon="@Icons.Rounded.Book">
+            <MudText>
+                Content Three
+            </MudText>
+        </MudTabPanel>
+        <MudTabPanel Text="Favorite" Icon="@Icons.Rounded.Star">
+            <MudText>
+                Content Three
+            </MudText>
+        </MudTabPanel>
+        <MudTabPanel Text="Trash" Icon="@Icons.Rounded.Delete">
+            <MudText>
+                Content Three
+            </MudText>
+        </MudTabPanel>
+    </MudTabs>
+</MudContainer>
+
 @code {
 
 }
