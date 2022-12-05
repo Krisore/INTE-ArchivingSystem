@@ -1,13 +1,22 @@
 ﻿@page "/research/{id:int}"
-@inject IResearchService ResearchService
+@inject IDocumentService ResearchService
 <PageTitle>Research</PageTitle>
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-3">
         <MudCard Elevation="0">
             <MudCardHeader Class="d-block ">
-                <MudText Class="d-inline" Typo="Typo.h6">@research.Title </MudText> 
-                <MudText Class="d-inline" Typo="Typo.subtitle1"> by [Author's' Name]</MudText>
-                <MudText Typo="Typo.caption" Class="d-block" Align="Align.Right"> <i>Facilitated by [Faciliatator Name]</i></MudText>
-            <MudDivider/>
+                <MudText Class="d-inline" Typo="Typo.h6">@research.Title </MudText>
+                <div class="d-flex justify-start">
+                 <p> [Authored by]
+                <cite>
+                    @foreach (var author in research.Authors ?? throw new Exception(message: "The author is null"))
+                    {
+                        <MudText Class="d-inline" Typo="Typo.subtitle1">  @author.FirstName @author.LastName @author.MiddleInitial. ,</MudText>
+                    }
+                </cite>
+                </p>
+                </div>
+            <MudText Typo="Typo.caption" Class="d-block" Align="Align.Right"> <i>Facilitated by @research.Adviser.Name</i></MudText>
+            <MudDivider DividerType="DividerType.Middle"/>
             </MudCardHeader>
             <MudCardContent>
                 <MudText Typo="Typo.body1" Align="Align.Justify">@research.Abstract</MudText>
@@ -22,6 +31,6 @@
 
     protected async override Task OnInitializedAsync()
     {
-        research = await ResearchService.GetProduct(Id);
+        research = await ResearchService.GetResearch(Id);
     }
 }

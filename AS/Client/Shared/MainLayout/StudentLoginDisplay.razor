@@ -6,36 +6,39 @@
 @layout MainLayout
 <AuthorizeView>
     <Authorized>
-        <MudMenu AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft">
+        <MudMenu AnchorOrigin="Origin.BottomLeft" TransformOrigin="Origin.TopLeft" Size="Size.Small">
             <ActivatorContent>
-                <MudChip Color="Color.Primary">
+                <MudChip Color="Color.Inherit" Variant="Variant.Outlined">
                     @context.User.Identity?.Name
-                    <MudAvatar Size="Size.Small" Color="Color.Secondary" Class="ml-1">
-                        @GetInitial(context.User.Identity?.Name!)</MudAvatar>
+                    <MudAvatar Class="ml-1" Size="Size.Small" Color="Color.Primary">
+                        @GetInitial(context.User.Identity?.Name!)
+                    </MudAvatar>
                 </MudChip>
             </ActivatorContent>
             <ChildContent>
                 <MudMenuItem>Profile</MudMenuItem>
-                <MudMenuItem @onclick="BeginLogout" Color="Color.Default">Sign out
+                <MudDivider />
+                <MudMenuItem @onclick="BeginLogout" Color="Color.Default">
+                    LOG OUT
                 </MudMenuItem>
             </ChildContent>
         </MudMenu>
     </Authorized>
     <NotAuthorized>
-        <MudButton DisableElevation="true" Size="Size.Small" OnClick="@((e) => BeginLogin(dialog))" Variant="Variant.Filled"
-            Color="Color.Primary" Class="rounded-0">
-            Sign In
+        <MudButton Class="rounded-0" DisableElevation="true" OnClick="@((e) => BeginLogin(dialog))"
+            Variant="Variant.Filled" Color="Color.Primary" Size="Size.Small">
+            LOG IN
         </MudButton>
     </NotAuthorized>
 </AuthorizeView>
 @code {
     private DialogOptions dialog = new DialogOptions()
-        {
-            Position = DialogPosition.TopCenter,
-            CloseButton = true,
-            NoHeader = false,
-            DisableBackdropClick = false,
-        };
+    {
+        Position = DialogPosition.TopCenter,
+        CloseButton = true,
+        NoHeader = false,
+        DisableBackdropClick = false,
+    };
     private async Task BeginLogout(MouseEventArgs args)
     {
         await SignOutManager.SetSignOutState();
@@ -43,11 +46,12 @@
     }
     private void BeginLogin(DialogOptions options)
     {
-       DialogService.Show<LoginMenu>("",options);
+        DialogService.Show<LoginMenu>("", options);
     }
-    public char GetInitial(string name)
+    public string GetInitial(string name)
     {
-        char[] Letters = name.ToArray();
-        return Letters[0];
+        String[] NameParts = name.Split(" ");
+        string initial = NameParts[0].FirstOrDefault().ToString().ToUpper() + NameParts[NameParts.Length - 1].FirstOrDefault().ToString().ToUpper();
+        return initial;
     }
 }

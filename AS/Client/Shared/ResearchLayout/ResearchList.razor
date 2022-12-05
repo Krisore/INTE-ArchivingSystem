@@ -1,35 +1,46 @@
-﻿@inject IResearchService ResearchService
+﻿@inject IDocumentService ResearchService
 @implements IDisposable
 
 <MudContainer MaxWidth="MaxWidth.Medium">
-    <MudList>
+    <MudList Class="my-2">
         @foreach (var research in ResearchService.Researches)
         {
-            <MudCard Class="my-2 cursor-pointer" Elevation="1">
+            <MudCard Class="my-1" Elevation="1">
                 <MudCardContent>
-                <a href="research/@research.Id">
-                    <MudText Typo="Typo.body2" Class="d-block">
-                       @research.Title
-                    </MudText>
-
-                    <MudText Typo="Typo.subtitle2" Class="mb-2" Align="Align.Justify">
-                     
-                    </MudText>
-                    <MudDivider DividerType="DividerType.Middle" />
-                    <MudText Typo="Typo.body2" Align="Align.Justify" Class="mt-2">
+                    <a href="research/@research.Id">
+                        <MudText Class="d-block" Typo="Typo.body2">
+                            <strong>@research.Title</strong>
+                        </MudText>
+                        <MudText Class="d-inline" Typo="Typo.subtitle2"> by </MudText>
+                        <cite>
+                            @foreach(var author in research.Authors ?? throw new Exception(message: "authors are null here"))
+                            {
+                                <MudText Class="d-inline" Typo="Typo.caption" Align="Align.Left">
+                                    @author.LastName @author.MiddleInitial. ,
+                                </MudText>
+                            }
+                            (@research.PublishDate.Year)
+                        </cite>
+                        <MudText Class="d-block mb-2" Typo="Typo.caption" Align="Align.Right">
+                           Facilitated by : Prof. @research.Adviser.Name
+                        </MudText>
+                    </a>
+                    <MudDivider DividerType="DividerType.FullWidth" />
+                    <MudText Class="mt-2" Typo="Typo.caption" Align="Align.Justify">
                         @research.Abstract
                     </MudText>
-                </a>
                 </MudCardContent>
+                <MudDivider DividerType="DividerType.FullWidth" />
                 <MudCardActions>
-                    <MudButton Variant="Variant.Outlined" StartIcon="@Icons.Sharp.Add" Color="Color.Primary"
-                           Size="Size.Small">
-                        Add to library
+                    <MudButton Class="rounded-0 mx-1" Variant="Variant.Filled" StartIcon="@Icons.Filled.Download" Color="Color.Primary"
+                    Size="Size.Small" DisableElevation="true">
+                        Download
                     </MudButton>
-                    <MudButton Class="ml-3" StartIcon="@Icons.Filled.Description" Variant="Variant.Text"
-                           Color="Color.Inherit">
-                        Related
+                    <MudButton Class="rounded-0 mx-1" Variant="Variant.Outlined" StartIcon="@Icons.Outlined.Add" Color="Color.Secondary"
+                           Size="Size.Small" DisableElevation="true">
+                        Add to Library
                     </MudButton>
+                   
                 </MudCardActions>
             </MudCard>
         }
@@ -38,7 +49,15 @@
 @code {
     //[Parameter]
     //public int? OrganizationId { get; set; } = null;
-    protected override void  OnInitialized()
+    public bool _drawerOpen = false;
+    public bool isAdded { get; set; }
+    private int ViewResearchId;
+    private Research research = new Research();
+    void DrawerOpen()
+    {
+        _drawerOpen = !_drawerOpen;
+    }
+    protected override void OnInitialized()
     {
         //await ResearchService.LoadResearchs();
         ResearchService.OnChange += StateHasChanged;

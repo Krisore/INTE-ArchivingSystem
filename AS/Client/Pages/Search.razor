@@ -1,80 +1,24 @@
 ﻿@page "/search"
+@inject IDocumentService ResearchService
+@using AS.Client.Component
 <MudContainer MaxWidth="MaxWidth.Medium" Class="mt-16">
-    <MudTextField Class="d-flex inline" Intermediate="true" HelperText="@search" @bind-Value="search"
-                  Label="Search for .... 🤔" Variant="Variant.Filled" Adornment="Adornment.End"
-                  AdornmentIcon="@Icons.Filled.Search" AdornmentColor="Color.Secondary" Clearable="true"/>
-    <MudList>
-            <MudCard Outlined="false" @onclick="DrawerOpen" Class="cursor-pointer">
-            <MudCardContent>
-                <MudText Typo="Typo.h5">@Title</MudText>
-                <MudText Typo="Typo.caption"> <i>@Organization</i></MudText>
-                <MudText Typo="Typo.subtitle2" Class="mb-2" Align="Align.Justify"><cite>@Author</cite></MudText>
-                <MudDivider DividerType="DividerType.Middle" />
-                <MudText Typo="Typo.body2" Align="Align.Justify" Class="mt-2">
-                    @Abstract
-                </MudText>
-            </MudCardContent>
-            <MudCardActions>
-                <MudButton Variant="Variant.Text" StartIcon="@Icons.Sharp.Add" Color="Color.Secondary"
-                    Size="Size.Small">
-                    Add to library
-                </MudButton>
-                <MudButton Class="ml-3" StartIcon="@Icons.Filled.Description" Variant="Variant.Text"
-                    Color="Color.Inherit">
-                    Related
-                </MudButton>
-            </MudCardActions>
-        </MudCard>
-    </MudList>
+    <SearchComponent OnSearch="HandleSearch" />
+    <MudDivider DividerType="DividerType.Middle" />
+    <ResearchList />
 </MudContainer>
-<MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Docked" Elevation="13" hidden="true" Anchor="Anchor.Right"
-    DisableOverlay="false" Class="mt-15 mb-15">
-    <MudDrawerHeader>
-        <MudText Typo="Typo.body2" Class="mt-4"> 
-            INFO 
-        </MudText>
-    </MudDrawerHeader>
-    <MudDivider DividerType="DividerType.Middle" Class="mb-2"/>
+<MudDrawer Anchor="Anchor.Right" Open="false">
     <MudDrawerContainer>
-        <MudContainer>
-            <MudText Typo="Typo.h6">
-            <strong>@Title</strong>
-        </MudText>
-        <MudText Color="Color.Info" Typo="Typo.caption">
-            <em> @Organization </em>
-        </MudText>
-        <MudText Typo="Typo.subtitle2" Class="mb-2">
-            <cite>@Author</cite>
-        </MudText>
-        <MudToggleIconButton @bind-Toggled="@isAdded" Size="Size.Small"
-                     Icon="@Icons.Material.Filled.Add" Color="@Color.Info" Title="Off"
-                     ToggledIcon="@Icons.Material.Filled.Check"  ToggledSize="Size.Small" ToggledColor="@Color.Success" ToggledTitle="On"/>
-                     <span>@(isAdded?"Added": "Add") to library</span>
-        <MudDivider DividerType="DividerType.Middle"/>
-        <MudText Class="mt-4" Typo="Typo.body2">
-            ABSTRACT
-        </MudText>
-        <MudText Typo="Typo.body2" Class="mt-2" Align="Align.Justify">
-            @Abstract
-        </MudText>
-        </MudContainer>
+
+    </MudDrawerContainer>
+    <MudDrawerContainer>
+
     </MudDrawerContainer>
 </MudDrawer>
 @code {
     [Parameter]
     public string? search { get; set; }
-    public bool _drawerOpen = false;
-    public bool isAdded { get; set; }
-    void DrawerOpen()
+    private void HandleSearch(string filter)
     {
-        _drawerOpen = !_drawerOpen;
+
     }
-    public string? Title { get; } = "PUPBC : Archiving System";
-    public string? Organization { get; } = "Institute of Bachelors in Information Technology Studies - PUPBC(2022)";
-    public string? Author { get; } = "Enore K, Jaypee M., James A., Salazar P., Intal C., Angeliko Jr.";
-    public string? Abstract { get; } = "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.";
-}
-
-@code {
-
 }

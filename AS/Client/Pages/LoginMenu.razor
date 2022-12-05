@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@page "/loginmenu"
+<MudContainer MaxWidth="MaxWidth.Small" Class="d-flex justify-center align-center ">
+    <MudCard Class="mt-12" Elevation="8">
+        <MudCardHeader>
+            <CardHeaderAvatar>
+                <MudAvatar Style="height:70px; width:70px;" Image="/img/Pup_logo.jpg"></MudAvatar>
+            </CardHeaderAvatar>
+            <CardHeaderContent>
+                <MudText Typo="Typo.body1"> Polytechnic University of the Philippines</MudText>
+                <MudText Typo="Typo.caption"> Biñan Campus</MudText>
+            </CardHeaderContent>
+        </MudCardHeader>
+        <MudDivider Class="mb-1" />
+        <MudCardMedia Image="/img/pup12.jpg" />
+        <MudDivider Class="mt-2" />
+        <MudCardContent>
+            <MudText Typo="Typo.caption" Align="Align.Center"> PUPBC Archivie. is a system that will assist in the
+                transition from a traditional file cabinet
+                system to an electronic-based archiving system.🚀</MudText>
+            <MudDivider Class="my-4" />
+            <MudText Typo="Typo.body2" Class="mt-4" Align="Align.Center"> Sign In as a </MudText>
+        </MudCardContent>
+        <MudCardActions Class="d-flex inline justify-center align-center">
+            <MudButton StartIcon="@Icons.Rounded.Person" Class="rounded-0 mr-2" Variant="Variant.Filled"
+                Color="Color.Primary" DisableElevation="true" Href="authentication/login">
+                Student
+            </MudButton>
+            <MudText Typo="Typo.caption" Style=""> or </MudText>
+            <MudButton StartIcon="@Icons.Rounded.People" Variant="Variant.Outlined" Color="Color.Secondary"
+                DisableElevation="true" Class="ml-2 rounded-0">
+                Archivist</MudButton>
+        </MudCardActions>
+        <MudText Class="d-flex inline justify-center align-center" Typo="Typo.caption"> This system is on Beta ⚠️
+        </MudText>
+    </MudCard>
+</MudContainer>
+
+
+@code {
+
+}
